@@ -7,6 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
+import { Empty } from "./google/protobuf/empty";
 
 export const protobufPackage = "auth.v1";
 
@@ -67,7 +68,7 @@ export interface AuthServiceClient {
 
   refresh(request: RefreshRequest): Observable<JwtResponse>;
 
-  logout(request: LogoutRequest): Observable<SuccessResponse>;
+  logout(request: Empty): Observable<SuccessResponse>;
 }
 
 export interface AuthServiceController {
@@ -79,7 +80,7 @@ export interface AuthServiceController {
 
   refresh(request: RefreshRequest): Promise<JwtResponse> | Observable<JwtResponse> | JwtResponse;
 
-  logout(request: LogoutRequest): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+  logout(request: Empty): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
 }
 
 export function AuthServiceControllerMethods() {

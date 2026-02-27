@@ -2,12 +2,14 @@ syntax = "proto3";
 
 package auth.v1;
 
+import "google/protobuf/empty.proto";
+
 service AuthService {
   rpc Register(RegisterRequest) returns (SuccessResponse);
   rpc ConfirmRegister(ConfirmRegisterRequest) returns (JwtResponse);
   rpc Login(LoginRequest) returns (JwtResponse);
   rpc Refresh(RefreshRequest) returns (JwtResponse);
-  rpc Logout(LogoutRequest) returns (SuccessResponse);
+  rpc Logout(google.protobuf.Empty) returns (SuccessResponse);
 }
 
 // JWT
