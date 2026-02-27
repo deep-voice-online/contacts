@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package auth.v1;
+
+service AuthService {
+  rpc Register(RegisterRequest) returns (SuccessResponse);
+  rpc ConfirmRegister(ConfirmRegisterRequest) returns (JwtResponse);
+  rpc Login(LoginRequest) returns (JwtResponse);
+  rpc Refresh(RefreshRequest) returns (JwtResponse);
+  rpc Logout(LogoutRequest) returns (SuccessResponse);
+}
+
+// JWT
+message JwtPayload {
+  string sub = 1;
+  string role = 2;
+  int64 exp = 3;
+  int64 iat = 4;
+}
+
+message JwtResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+// Success Response
+message SuccessResponse {
+  bool ok = 1;
+}
+
+// Register
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// Confirm Register
+message ConfirmRegisterRequest{
+  string email = 1;
+  string code = 2;
+}
+
+// Refresh Access Token
+message RefreshRequest {
+  string clientId = 1;
+  string refreshToken = 2;
+}
+
+// Login
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+//Logout
+message LogoutRequest {}
+

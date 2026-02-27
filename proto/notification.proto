@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package notification.v1;
+
+import "google/protobuf/empty.proto";
+
+service NotificationService {
+  rpc SendOtp(OtpRequest) returns (google.protobuf.Empty);
+}
+
+message OtpRequest {
+  string email = 1;
+  int32 code = 2;
+}
