@@ -1,0 +1,33 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'          # срабатывает при пуше тега вида v1.0.6
+
+permissions:
+  contents: read
+  id-token: write    # обязательно для OIDC / Trusted Publishing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Upgrade npm (требуется >= 11.5.1 для Trusted Publishing)
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
