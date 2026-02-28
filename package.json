@@ -1,13 +1,14 @@
 {
   "name": "@deepvoicerut/contracts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "files": [
     "proto",
     "gen"
   ],
   "scripts": {
-    "generate": "npx protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=nestJs=true --ts_proto_opt=esModuleInterop=true --ts_proto_out=./gen -I ./proto ./proto/*.proto"
+    "generate:grpc": "npx protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=nestJs=true --ts_proto_opt=esModuleInterop=true --ts_proto_out=./gen -I ./proto ./proto/*.proto",
+    "generate": "npx protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=onlyTypes=true,esModuleInterop=true,lowerCaseServiceMethods=true --ts_proto_out=./gen -I ./proto ./proto/*.proto"
   },
   "publishConfig": {
     "access": "public"
