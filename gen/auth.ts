@@ -38,7 +38,7 @@ export interface RegisterRequest {
 /** Confirm Register */
 export interface ConfirmRegisterRequest {
   email: string;
-  code: string;
+  code: number;
 }
 
 /** Refresh Access Token */
