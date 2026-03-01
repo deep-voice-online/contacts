@@ -44,7 +44,6 @@ message ConfirmRegisterRequest{
 
 // Refresh Access Token
 message RefreshRequest {
-  string clientId = 1;
   string refreshToken = 2;
 }
 

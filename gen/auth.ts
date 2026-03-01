@@ -43,7 +43,6 @@ export interface ConfirmRegisterRequest {
 
 /** Refresh Access Token */
 export interface RefreshRequest {
-  clientId: string;
   refreshToken: string;
 }
 
