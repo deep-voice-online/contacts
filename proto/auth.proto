@@ -39,7 +39,7 @@ message RegisterRequest {
 // Confirm Register
 message ConfirmRegisterRequest{
   string email = 1;
-  string code = 2;
+  int32 code = 2;
 }
 
 // Refresh Access Token
