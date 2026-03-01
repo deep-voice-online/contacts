@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package file.v1;
+
+// Основной сервис управления файлами
+service FileService {
+  // 1. Создать запись в БД и получить Presigned URL для загрузки (PUT)
+  rpc InitializeUpload (UploadRequest) returns (UploadResponse);
+
+  // 2. Получить временную ссылку на скачивание (GET)
+  rpc GetDownloadLink (FileIdRequest) returns (DownloadLinkResponse);
+
+  // 3. Список всех файлов пользователя из БД
+  rpc GetUserFiles (UserFileRequest) returns (FileList);
+
+  // 4. Техническая инфа о файле для микросервиса-транскрибатора
+  rpc GetFileInfo (FileIdRequest) returns (FileInfo);
+}
+
+// --- Сообщения для запросов (Requests) ---
+
+message UploadRequest {
+  string user_id = 1;      // ID из твоего Auth-service
+  string file_name = 2;    // Оригинальное имя: "my_audio.mp3"
+  string content_type = 3; // MIME-тип: "audio/mpeg" или "video/mp4"
+  int64 file_size = 4;     // Размер в байтах (для проверок лимитов)
+}
+
+message FileIdRequest {
+  string file_id = 1;      // UUID файла из твоей БД
+}
+
+message UserFileRequest {
+  string user_id = 1;
+}
+
+// --- Сообщения для ответов (Responses) ---
+
+message UploadResponse {
+  string file_id = 1;      // Созданный ID в БД
+  string upload_url = 2;   // Presigned URL для фронтенда (PUT)
+  string file_key = 3;     // Путь в бакете (напр. "uploads/user1/uuid.mp3")
+}
+
+message DownloadLinkResponse {
+  string download_url = 1; // Временная ссылка для скачивания (GET)
+  int32 expires_in = 2;    // Время жизни ссылки в секундах (напр. 3600)
+}
+
+message FileList {
+  repeated FileInfo files = 1;
+}
+
+// Универсальный объект файла (карточка файла)
+message FileInfo {
+  string id = 1;
+  string user_id = 2;
+  string original_name = 3;
+  string file_key = 4;
+  string content_type = 5;
+  int64 size = 6;
+  string status = 7;       // UPLOADING, READY, DELETED
+  string created_at = 8;   // ISO дата
+}
