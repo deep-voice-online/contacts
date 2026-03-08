@@ -1,6 +1,6 @@
 {
   "name": "@deepvoicerut/contracts",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "files": [
     "proto",
@@ -23,5 +23,8 @@
     "rjsx": "^1.0.1",
     "ts-proto": "^2.11.2",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.5"
   }
 }
