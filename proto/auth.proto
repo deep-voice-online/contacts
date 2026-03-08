@@ -16,13 +16,17 @@ service AuthService {
 message JwtPayload {
   string sub = 1;
   string role = 2;
-  int64 exp = 3;
-  int64 iat = 4;
 }
 
 message JwtResponse {
   string accessToken = 1;
   string refreshToken = 2;
+}
+
+enum UserRoles {
+  USER_ROLE_UNSPECIFIED = 0;
+  USER = 1;
+  ADMIN = 2;
 }
 
 // Success Response
