@@ -29,5 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Добавляем шаг генерации и сборки
+      - name: Build package
+        run: |
+          npm run generate
+          npx tsc # Или npm run build, если у тебя есть такой скрип
+
       - name: Publish to npm
         run: npm publish --provenance --access public
