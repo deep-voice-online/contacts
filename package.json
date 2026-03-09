@@ -1,6 +1,6 @@
 {
   "name": "@deepvoicerut/contracts",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "",
   "files": [
     "proto",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@nestjs/microservices": "^11.1.14",
+    "protobufjs": "^8.0.0",
     "rjsx": "^1.0.1",
     "ts-proto": "^2.11.2",
     "typescript": "^5.9.3"

@@ -7,16 +7,20 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { Empty } from "./google/protobuf/empty";
 
 export const protobufPackage = "auth.v1";
+
+export enum UserRoles {
+  USER_ROLE_UNSPECIFIED = 0,
+  USER = 1,
+  ADMIN = 2,
+  UNRECOGNIZED = -1,
+}
 
 /** JWT */
 export interface JwtPayload {
   sub: string;
   role: string;
-  exp: number;
-  iat: number;
 }
 
 export interface JwtResponse {
@@ -38,22 +42,22 @@ export interface RegisterRequest {
 /** Confirm Register */
 export interface ConfirmRegisterRequest {
   email: string;
-  code: number;
+  otp: number;
 }
 
 /** Refresh Access Token */
-export interface RefreshRequest {
+export interface RefreshAccessTokenRequest {
   refreshToken: string;
+}
+
+export interface RefreshAccessTokenResponse {
+  accessToken: string;
 }
 
 /** Login */
 export interface LoginRequest {
   email: string;
   password: string;
-}
-
-/** Logout */
-export interface LogoutRequest {
 }
 
 export const AUTH_V1_PACKAGE_NAME = "auth.v1";
@@ -65,9 +69,7 @@ export interface AuthServiceClient {
 
   login(request: LoginRequest): Observable<JwtResponse>;
 
-  refresh(request: RefreshRequest): Observable<JwtResponse>;
-
-  logout(request: Empty): Observable<SuccessResponse>;
+  refreshAccessToken(request: RefreshAccessTokenRequest): Observable<RefreshAccessTokenResponse>;
 }
 
 export interface AuthServiceController {
@@ -77,14 +79,14 @@ export interface AuthServiceController {
 
   login(request: LoginRequest): Promise<JwtResponse> | Observable<JwtResponse> | JwtResponse;
 
-  refresh(request: RefreshRequest): Promise<JwtResponse> | Observable<JwtResponse> | JwtResponse;
-
-  logout(request: Empty): Promise<SuccessResponse> | Observable<SuccessResponse> | SuccessResponse;
+  refreshAccessToken(
+    request: RefreshAccessTokenRequest,
+  ): Promise<RefreshAccessTokenResponse> | Observable<RefreshAccessTokenResponse> | RefreshAccessTokenResponse;
 }
 
 export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["register", "confirmRegister", "login", "refresh", "logout"];
+    const grpcMethods: string[] = ["register", "confirmRegister", "login", "refreshAccessToken"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);

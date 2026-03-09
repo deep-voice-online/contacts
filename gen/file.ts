@@ -6,6 +6,7 @@
 
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { wrappers } from "protobufjs";
 import { Observable } from "rxjs";
 
 export const protobufPackage = "file.v1";
@@ -61,10 +62,19 @@ export interface FileInfo {
   /** UPLOADING, READY, DELETED */
   status: string;
   /** ISO дата */
-  createdAt: string;
+  createdAt: Date | undefined;
 }
 
 export const FILE_V1_PACKAGE_NAME = "file.v1";
+
+wrappers[".google.protobuf.Timestamp"] = {
+  fromObject(value: Date) {
+    return { seconds: value.getTime() / 1000, nanos: (value.getTime() % 1000) * 1e6 };
+  },
+  toObject(message: { seconds: number; nanos: number }) {
+    return new Date(message.seconds * 1000 + message.nanos / 1e6);
+  },
+} as any;
 
 /** Основной сервис управления файлами */
 
