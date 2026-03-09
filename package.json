@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@nestjs/microservices": "^11.1.14",
-    "protobufjs": "^8.0.0",
+    "protobufjs": "^7.5.4",
     "rjsx": "^1.0.1",
     "ts-proto": "^2.11.2",
     "typescript": "^5.9.3"
