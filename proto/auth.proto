@@ -8,7 +8,7 @@ service AuthService {
   rpc Register(RegisterRequest) returns (SuccessResponse);
   rpc ConfirmRegister(ConfirmRegisterRequest) returns (JwtResponse);
   rpc Login(LoginRequest) returns (JwtResponse);
-  rpc Refresh(RefreshAccessRequest) returns (RefreshAccessResponse);
+  rpc RefreshAccessToken(RefreshAccessTokenRequest) returns (RefreshAccessTokenResponse);
 }
 
 // JWT
@@ -46,11 +46,11 @@ message ConfirmRegisterRequest{
 }
 
 // Refresh Access Token
-message RefreshAccessRequest {
+message RefreshAccessTokenRequest {
   string refreshToken = 1;
 }
 
-message RefreshAccessResponse {
+message RefreshAccessTokenResponse {
   string accessToken = 1;
 }
 
