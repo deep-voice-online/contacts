@@ -50,11 +50,11 @@ message DownloadLinkResponse {
 }
 
 message FileList {
-  repeated FileInfo files = 1;
+  repeated File files = 1;
 }
 
 // Универсальный объект файла (карточка файла)
-message FileInfo {
+message File {
   string id = 1;
   string user_id = 2;
   string original_name = 3;
@@ -63,4 +63,8 @@ message FileInfo {
   int64 size = 6;
   string status = 7;       // UPLOADING, READY, DELETED
   google.protobuf.Timestamp created_at = 8;   // ISO дата
+}
+
+message FileInfo {
+  File file = 1;
 }
