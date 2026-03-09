@@ -48,11 +48,11 @@ export interface DownloadLinkResponse {
 }
 
 export interface FileList {
-  files: FileInfo[];
+  files: File[];
 }
 
 /** Универсальный объект файла (карточка файла) */
-export interface FileInfo {
+export interface File {
   id: string;
   userId: string;
   originalName: string;
@@ -63,6 +63,10 @@ export interface FileInfo {
   status: string;
   /** ISO дата */
   createdAt: Date | undefined;
+}
+
+export interface FileInfo {
+  file: File | undefined;
 }
 
 export const FILE_V1_PACKAGE_NAME = "file.v1";

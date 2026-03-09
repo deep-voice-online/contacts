@@ -1,0 +1,13 @@
+syntax = 'proto3';
+
+package transcribe.v1;
+
+import 'google/protobuf/empty.proto';
+
+service TranscribeService {
+  rpc Transcribe(TranscribeRequest) returns (google.protobuf.Empty);
+}
+
+message TranscribeRequest {
+  string download_url = 1;
+}
