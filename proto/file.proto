@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package file.v1;
 
-import 'google/protobuf/timestamp.proto'
+import 'google/protobuf/timestamp.proto';
 
 // Основной сервис управления файлами
 service FileService {
