@@ -5,9 +5,9 @@ package transcribe.v1;
 import 'google/protobuf/empty.proto';
 
 service TranscribeService {
-  rpc Transcribe(TranscribeRequest) returns (google.protobuf.Empty);
+  rpc TranscribeProcess(TranscribeProcessRequest) returns (google.protobuf.Empty);
 }
 
-message TranscribeRequest {
+message TranscribeProcessRequest {
   string download_url = 1;
 }
