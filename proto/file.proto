@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package file.v1;
 
+import 'google/protobuf/timestamp.proto'
+
 // Основной сервис управления файлами
 service FileService {
   // 1. Создать запись в БД и получить Presigned URL для загрузки (PUT)
@@ -60,5 +62,5 @@ message FileInfo {
   string content_type = 5;
   int64 size = 6;
   string status = 7;       // UPLOADING, READY, DELETED
-  string created_at = 8;   // ISO дата
+  google.protobuf.Timestamp created_at = 8;   // ISO дата
 }
