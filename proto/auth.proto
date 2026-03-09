@@ -8,8 +8,7 @@ service AuthService {
   rpc Register(RegisterRequest) returns (SuccessResponse);
   rpc ConfirmRegister(ConfirmRegisterRequest) returns (JwtResponse);
   rpc Login(LoginRequest) returns (JwtResponse);
-  rpc Refresh(RefreshRequest) returns (JwtResponse);
-  rpc Logout(google.protobuf.Empty) returns (SuccessResponse);
+  rpc Refresh(RefreshAccessRequest) returns (RefreshAccessResponse);
 }
 
 // JWT
@@ -47,8 +46,12 @@ message ConfirmRegisterRequest{
 }
 
 // Refresh Access Token
-message RefreshRequest {
-  string refreshToken = 2;
+message RefreshAccessRequest {
+  string refreshToken = 1;
+}
+
+message RefreshAccessResponse {
+  string accessToken = 1;
 }
 
 // Login
@@ -57,6 +60,4 @@ message LoginRequest {
   string password = 2;
 }
 
-//Logout
-message LogoutRequest {}
 
