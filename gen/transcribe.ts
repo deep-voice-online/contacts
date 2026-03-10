@@ -7,27 +7,33 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { Empty } from "./google/protobuf/empty";
 
 export const protobufPackage = "transcribe.v1";
 
-export interface TranscribeRequest {
+export interface TranscribeProcessRequest {
+  userId: string;
   downloadUrl: string;
+}
+
+export interface TranscribeProcessResponse {
+  success: boolean;
 }
 
 export const TRANSCRIBE_V1_PACKAGE_NAME = "transcribe.v1";
 
 export interface TranscribeServiceClient {
-  transcribe(request: TranscribeRequest): Observable<Empty>;
+  transcribeProcess(request: TranscribeProcessRequest): Observable<TranscribeProcessResponse>;
 }
 
 export interface TranscribeServiceController {
-  transcribe(request: TranscribeRequest): void | Promise<void>;
+  transcribeProcess(
+    request: TranscribeProcessRequest,
+  ): Promise<TranscribeProcessResponse> | Observable<TranscribeProcessResponse> | TranscribeProcessResponse;
 }
 
 export function TranscribeServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["transcribe"];
+    const grpcMethods: string[] = ["transcribeProcess"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("TranscribeService", method)(constructor.prototype[method], method, descriptor);

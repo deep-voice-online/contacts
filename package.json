@@ -1,6 +1,6 @@
 {
   "name": "@deepvoicerut/contracts",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "",
   "files": [
     "proto",
@@ -19,6 +19,7 @@
     "url": "git+https://github.com/deep-voice-online/contacts.git"
   },
   "dependencies": {
+    "@deepvoicerut/contracts": "^1.0.23",
     "@nestjs/microservices": "^11.1.14",
     "protobufjs": "^7.5.4",
     "rjsx": "^1.0.1",

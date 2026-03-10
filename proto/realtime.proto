@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package realtime.v1;
+
+import "google/protobuf/empty.proto";
+
+service RealtimeService {
+  // Метод, который вызывают другие сервисы (транскрибация, файлы и т.д.)
+  // чтобы отправить данные в сокет пользователя
+  rpc EmitToUser(EmitToUserRequest) returns (google.protobuf.Empty);
+}
+
+message EmitToUserRequest {
+  string user_id = 1;      // ID пользователя из твоей БД
+  string payload_json = 3; // Данные в формате JSON (текст, ссылки, статусы)
+}
